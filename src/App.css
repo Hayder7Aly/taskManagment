@@ -125,8 +125,7 @@
 
 }
 
-.taskList .task{
-  /* flex: 0 0 calc(33.33% - 2rem);  */
+/* .taskList .task{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -141,7 +140,7 @@
   margin: 1.2rem
   
 
-}
+} */
 
 .taskList .task .actionButton{
   display: flex;
@@ -154,8 +153,11 @@
   .taskList{
     flex-direction: column;
   }
-  .taskList .task {
+
+  .taskList .task{
     width: 100%;
+    flex: 1;
+
   }
 
 }
