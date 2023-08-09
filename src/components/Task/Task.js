@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { deleteTaskApi, editTaskApi } from "../slices/taskSlice";
+import { deleteTaskApi, editTaskApi } from "../../slices/taskSlice";
 import { motion } from "framer-motion";
 
 const Task = ({ title, description, completed, id }) => {

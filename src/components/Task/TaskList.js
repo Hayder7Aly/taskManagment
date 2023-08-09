@@ -1,7 +1,7 @@
 import React from "react";
 import Task from "./Task";
 import { useSelector } from "react-redux";
-import { taskSelector } from "../slices/taskSlice";
+import { taskSelector } from "../../slices/taskSlice";
 
 const TaskList = () => {
   const { taskList } = useSelector(taskSelector);

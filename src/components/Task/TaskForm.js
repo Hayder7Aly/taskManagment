@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { createTaskApi } from "../slices/taskSlice";
+import { createTaskApi } from "../../slices/taskSlice";
 import { motion } from "framer-motion";
 
 const TaskForm = () => {

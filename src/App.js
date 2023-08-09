@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import TaskForm from "./components/TaskForm";
-import TaskList from "./components/TaskList";
+import TaskForm from "./components/Task/TaskForm";
+import TaskList from "./components/Task/TaskList";
 import { useDispatch } from "react-redux";
 import { reterieveAllTasks } from "./slices/taskSlice";
 import { motion } from "framer-motion";
@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 
 
 
-import Notify from "./components/Notify";
+import Notify from "./components/Notification/Notify";
 
 function App() {
   const [firstTime, setFirstTime] = useState(true);

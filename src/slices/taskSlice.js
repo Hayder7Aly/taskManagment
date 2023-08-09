@@ -53,19 +53,23 @@ const editTaskApi = createAsyncThunk("contact/edit", async (data) => {
 
 const initialState = {
   taskList: [],
+  firstTime: true
 };
 
 const taskSlice = createSlice({
   name: "task",
+
   initialState,
 
   reducers: {},
 
   extraReducers: {
     [reterieveAllTasks.fulfilled]: (state, action) => {
-
-      
+      if(state.firstTime){
+        notify("Successfully Got All Task !")
+      }
       state.taskList = action.payload;
+      state.firstTime = false
     },
     [createTaskApi.fulfilled]: (state, action) => {
       
