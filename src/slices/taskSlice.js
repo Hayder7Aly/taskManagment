@@ -5,7 +5,8 @@ import taskServices from "../services/taskServices";
 
 const reterieveAllTasks = createAsyncThunk("taskList/retrieve", async () => {
   const response = await taskServices.getAllTask();
-  return response.data;
+
+  return response.data.reverse();
 });
 
 const createTaskApi = createAsyncThunk("taskList/create", async (data) => {
@@ -42,10 +43,11 @@ const taskSlice = createSlice({
 
   extraReducers: {
     [reterieveAllTasks.fulfilled]: (state, action) => {
+      
       state.taskList = action.payload;
     },
     [createTaskApi.fulfilled]: (state, action) => {
-      state.taskList.push(action.payload);
+      state.taskList.unshift(action.payload);
     },
     [deleteTaskApi.fulfilled]: (state, {payload}) => {
       const idx = state.taskList.findIndex((task) => task.id === payload.id);

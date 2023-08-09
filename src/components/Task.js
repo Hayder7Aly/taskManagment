@@ -2,9 +2,41 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { deleteTaskApi, editTaskApi } from "../slices/taskSlice";
 import { motion } from "framer-motion";
+import { toast } from "react-toastify";
 
 const Task = ({ title, description, completed, id }) => {
   const dispatch = useDispatch();
+
+  const onEditTask = () => {
+    dispatch(editTaskApi({ title, description, completed: !completed, id }));
+    toast.success('Successfully Saved !', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      });
+  };
+
+
+  const onDeleteTask = () => {
+
+    dispatch(deleteTaskApi(id))
+    toast.success('Successfully Deleted !', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      });
+
+  }
 
   return (
     <motion.div
@@ -14,7 +46,7 @@ const Task = ({ title, description, completed, id }) => {
         opacity: 1,
         x: [null, -10, 10, -10, 10, -5, 5, -2, 2, 0],
       }}
-      transition={{ duration: .5, ease: "easeOut" }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
       style={{
         display: "flex",
         flexDirection: "column",
@@ -29,23 +61,19 @@ const Task = ({ title, description, completed, id }) => {
         margin: "1.2rem",
       }}
     >
-        <h3 className="title">{title}</h3>
-        <p className="description">{description}</p>
-        <div className="actionButton">
-          <button className="del" onClick={() => dispatch(deleteTaskApi(id))}>
-            DEL
-          </button>
-          <button
-            className={completed ? "completed" : "pending"}
-            onClick={() =>
-              dispatch(
-                editTaskApi({ title, description, completed: !completed, id })
-              )
-            }
-          >
-            {completed ? "Complete" : "Incomplete"}
-          </button>
-        </div>
+      <h3 className="title">{title}</h3>
+      <p className="description">{description}</p>
+      <div className="actionButton">
+        <button className="del" onClick={onDeleteTask}>
+          DEL
+        </button>
+        <button
+          className={completed ? "completed" : "pending"}
+          onClick={onEditTask}
+        >
+          {completed ? "Complete" : "Incomplete"}
+        </button>
+      </div>
     </motion.div>
   );
 };

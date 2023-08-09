@@ -1,61 +1,83 @@
+import { useEffect, useState } from "react";
+import "./App.css";
+import TaskForm from "./components/TaskForm";
+import TaskList from "./components/TaskList";
+import { useDispatch } from "react-redux";
+import { reterieveAllTasks } from "./slices/taskSlice";
+import { motion } from "framer-motion";
 
-import { useEffect } from 'react';
-import './App.css';
-import TaskForm from './components/TaskForm';
-import TaskList from './components/TaskList';
-import { useDispatch } from 'react-redux';
-import { reterieveAllTasks } from './slices/taskSlice';
-import {motion} from "framer-motion"
+
+
+
+import Notify from "./components/Notify";
 
 function App() {
-
-
+  const [firstTime, setFirstTime] = useState(true);
   const dispatch = useDispatch();
 
+
+
   useEffect(() => {
-    const interval = setInterval(() => {
+    if (firstTime) {
       dispatch(reterieveAllTasks());
-    }, 5000);
+      setFirstTime(false);
+      return;
+    } else {
+      const interval = setInterval(() => {
+        dispatch(reterieveAllTasks());
+        
+      }, 5000);
 
-    return () => {
-      clearInterval(interval);
-    };
-  }, [dispatch]);
-
+      return () => {
+        clearInterval(interval);
+      };
+    }
+  }, [dispatch,firstTime]);
 
   return (
     <>
-      <div className='container'>
-
+      <motion.div className="container"
+      
+      initial={{ opacity: 0, x: -10 }}
+      animate={{
+        opacity: 1,
+        x: 0,
+      }}
+      transition={{
+        duration: 1,
+        ease: "easeInOut",
+      }}
+      >
         {/* navbar  */}
 
-        <div className='navbar'>
-          <motion.div className='logo'
-          initial={{ opacity: 0, x: -10 }}
-          animate={{
-            opacity: 1,
-            x: 0,
-          }}
-          transition={{
-            duration: 1,
-            ease: "easeInOut",
-          }}>
-            <img src='funfox.jpeg' alt='funfox' />
+        <div className="navbar">
+          <motion.div
+            className="logo"
+            initial={{ opacity: 0, x: -10 }}
+            animate={{
+              opacity: 1,
+              x: 0,
+            }}
+            transition={{
+              duration: 1,
+              ease: "easeInOut",
+            }}
+          >
+            <img src="funfox.jpeg" alt="funfox" />
           </motion.div>
         </div>
 
+        <Notify/>
+
+
         {/* main area  */}
 
-        <div className='main'>
-
+        <div className="main">
           <TaskForm />
-          <TaskList/>
-
+          <TaskList />
         </div>
-        
 
-
-      </div>
+      </motion.div>
     </>
   );
 }

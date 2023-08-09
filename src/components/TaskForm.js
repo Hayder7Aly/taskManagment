@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import { createTaskApi } from "../slices/taskSlice";
 import { motion } from "framer-motion";
 
+import {toast} from "react-toastify"
+
 const TaskForm = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -12,6 +14,17 @@ const TaskForm = () => {
   const onAddTask = () => {
     if (title.trim() === "" || description === "") return;
     dispatch(createTaskApi({ title, description, completed: false }));
+    toast.success('New Task Added !', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      });
+
     setTitle("");
     setDescription("");
   };
