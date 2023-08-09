@@ -1,13 +1,17 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { createTaskApi } from '../slices/taskSlice'
 
-const TaskForm = ({addTask}) => {
+const TaskForm = () => {
 
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
 
+    const dispatch  = useDispatch()
+
     const onAddTask = () => { 
         if(title.trim() === "" || description === "") return ;
-        addTask({title: title,description: description,completed:false})
+        dispatch(createTaskApi({title,description,completed:false}))
         setTitle("")
         setDescription("")
     }

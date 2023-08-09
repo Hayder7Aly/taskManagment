@@ -1,12 +1,18 @@
 import React from 'react'
 import Task from './Task'
+import { useSelector } from 'react-redux'
+import { taskSelector } from '../slices/taskSlice'
+const TaskList = () => {
+  const {taskList} = useSelector(taskSelector)
 
-const TaskList = ({taskList,onCompletedTask, delTask}) => {
   return (
     <div className='taskList'>
         <div className='centric'>
 
-      {taskList.map((task,idx) => <Task key={idx} id={idx} title={task.title} description={task.description} completed={task.completed} onCompletedTask={onCompletedTask} delTask={delTask}/>)}
+          
+
+
+      {taskList.map((task,idx) => <Task key={idx} id={task.id} title={task.title} description={task.description} completed={task.completed} />)}
       </div>    
 
     </div>
