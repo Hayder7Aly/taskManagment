@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import taskServices from "../services/taskServices";
+import {toast} from "react-toastify"
 
 
 const reterieveAllTasks = createAsyncThunk("taskList/retrieve", async () => {
@@ -27,6 +28,25 @@ const editTaskApi = createAsyncThunk("contact/edit", async (data) => {
   });
 
 
+
+  // Notifcation 
+
+
+  const notify = msg => {
+    toast.success(msg , {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      });
+  }
+
+
+
   
 
 
@@ -43,15 +63,19 @@ const taskSlice = createSlice({
 
   extraReducers: {
     [reterieveAllTasks.fulfilled]: (state, action) => {
+
       
       state.taskList = action.payload;
     },
     [createTaskApi.fulfilled]: (state, action) => {
+      
       state.taskList.unshift(action.payload);
+      notify("New Task Added Successfully !")
     },
     [deleteTaskApi.fulfilled]: (state, {payload}) => {
       const idx = state.taskList.findIndex((task) => task.id === payload.id);
       state.taskList.splice(idx, 1);
+      notify("Task Deleted Successfully !")
     },
 
 
@@ -59,6 +83,7 @@ const taskSlice = createSlice({
         state.taskList = state.taskList.map((task) =>
           task.id === action.payload.id ? { ...action.payload } : task
         );
+        notify("Task Saved Successfully !")
       },
 
 

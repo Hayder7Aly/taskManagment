@@ -2,41 +2,17 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { deleteTaskApi, editTaskApi } from "../slices/taskSlice";
 import { motion } from "framer-motion";
-import { toast } from "react-toastify";
 
 const Task = ({ title, description, completed, id }) => {
   const dispatch = useDispatch();
 
   const onEditTask = () => {
     dispatch(editTaskApi({ title, description, completed: !completed, id }));
-    toast.success('Successfully Saved !', {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-      });
   };
 
-
   const onDeleteTask = () => {
-
-    dispatch(deleteTaskApi(id))
-    toast.success('Successfully Deleted !', {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-      });
-
-  }
+    dispatch(deleteTaskApi(id));
+  };
 
   return (
     <motion.div
