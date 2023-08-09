@@ -10,12 +10,17 @@ import {motion} from "framer-motion"
 function App() {
 
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-      dispatch(reterieveAllTasks())
-    }, [dispatch])
+  useEffect(() => {
+    const interval = setInterval(() => {
+      dispatch(reterieveAllTasks());
+    }, 5000);
 
+    return () => {
+      clearInterval(interval);
+    };
+  }, [dispatch]);
 
 
   return (
